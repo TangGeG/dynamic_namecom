@@ -1,0 +1,19 @@
+{
+  "name": "namecom",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^13.13.0",
+    "@types/node-schedule": "^1.3.0",
+    "ts-node": "^8.8.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "axios": "^0.19.2",
+    "node-schedule": "^1.3.2"
+  }
+}
