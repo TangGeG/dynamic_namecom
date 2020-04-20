@@ -3,6 +3,8 @@ import { resolve } from 'path'
 import axios from 'axios'
 import * as schedule from 'node-schedule'
 
+let lastIp = ''
+
 const config = JSON.parse(
   readFileSync(resolve(__dirname, '../config.json'), { encoding: 'utf8' })
 )
@@ -23,6 +25,14 @@ async function run() {
       (record: any) => record.fqdn === `${config.domain}.`
     )
     const currentIP = await getCurrentIP()
+
+    if (lastIp && currentIP === lastIp) {
+      console.log(
+        `[${new Date().toLocaleString()}] ip not changed, no need for update`
+      )
+      return
+    }
+
     let res = null
     if (!targetRecord) {
       // create record to current ip
@@ -31,7 +41,7 @@ async function run() {
       // update record
       res = await updateRecord(targetRecord.id, currentIP)
     }
-
+    lastIp = currentIP
     console.log(
       `[${new Date().toLocaleString()}] update success: ${JSON.stringify(res)}`
     )
