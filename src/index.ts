@@ -53,6 +53,7 @@ async function run() {
 }
 
 function runWithSchedule() {
+  console.log(`[${new Date().toLocaleString()}] schedule job is running`)
   // run every 5 minutes
   schedule.scheduleJob('*/5 * * * *', () => {
     run()
