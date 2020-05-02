@@ -19,11 +19,6 @@ const http = axios.create({
 
 async function run() {
   try {
-    const { data } = await http.get(`/domains/${config.domain}/records`)
-    const { records } = data
-    const targetRecord = records.find(
-      (record: any) => record.fqdn === `${config.domain}.`
-    )
     const currentIP = await getCurrentIP()
 
     if (lastIp && currentIP === lastIp) {
@@ -32,6 +27,12 @@ async function run() {
       )
       return
     }
+
+    const { data } = await http.get(`/domains/${config.domain}/records`)
+    const { records } = data
+    const targetRecord = records.find(
+      (record: any) => record.fqdn === `${config.domain}.`
+    )
 
     let res = null
     if (!targetRecord) {
