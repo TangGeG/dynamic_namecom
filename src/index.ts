@@ -64,8 +64,8 @@ runWithSchedule()
 
 // 获取当前ip
 async function getCurrentIP() {
-  const { data } = await http.get('https://api.ip.sb/ip')
-  return data.replace(/\n|\s/g, '')
+  const { data } = await http.get('https://api.ipify.org/?format=json')
+  return data.ip
 }
 
 // 创建dns解析
